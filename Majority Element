@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        
+        unordered_map<int,int> mp;
+
+        for(auto i:nums){
+            mp[i]++;
+        }
+
+        int majority = 0;
+        int count = 0;
+
+        for(auto j:mp){
+            if(j.second > count){
+                count = j.second;
+                majority = j.first;
+            }
+        }
+
+        if(count > nums.size()/2){
+            return majority;
+        }
+        return -1;
+    }
+
+    // space complexity O(m+n);
+    // time complexity O(n);
+};
