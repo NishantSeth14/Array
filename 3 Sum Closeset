@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+        int n = nums.size();
+        int result = nums[0] + nums[1] + nums[n-1];
+        sort(nums.begin(), nums.end());
+
+        for(int i=0; i<n-2; i++){
+            int a_pointer = i+1;
+            int b_pointer = n-1;
+            while(a_pointer < b_pointer){
+                int current_sum = nums[i] + nums[a_pointer] + nums[b_pointer];
+                if(current_sum > target){
+                    b_pointer--;
+                }
+                else{
+                    a_pointer++;
+                }
+                if(abs(current_sum-target) < abs(result-target)){
+                    result = current_sum;
+                }
+            }
+        }
+        return result;
+    }
+};
+
+//Space Complexity O(n^2);
+//Time Complexity O(1);
