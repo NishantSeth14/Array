@@ -1,0 +1,72 @@
+//Recursive Solution
+
+class Solution {
+public:
+
+    int solve(int index ,int buy, vector<int>& prices){
+        if(index == prices.size()){
+            return 0;
+        }
+        int profit = 0;
+        if(buy){
+            int buys = -prices[index]+solve(index+1,0,prices);
+            int ignore = 0+solve(index+1,1,prices);
+            profit = max(buys,ignore);
+        }
+        else{
+            int sell = +prices[index]+solve(index+1,1,prices);
+            int ignore = 0+solve(index+1,0,prices);
+            profit = max(sell,ignore);
+        }
+        return profit;
+    }
+
+    int maxProfit(vector<int>& prices) {
+        return solve(0,1,prices);
+    }
+};
+
+
+//Top Down Apporach
+
+class Solution {
+public:
+
+    int solve(int index ,int buy, vector<int>& prices, vector<vector<int> >& dp){
+        if(index == prices.size()){
+            return 0;
+        }
+        if(dp[index][buy] != -1){
+            return dp[index][buy];
+        }
+        int profit = 0;
+        if(buy){
+            int buys = -prices[index]+solve(index+1,0,prices,dp);
+            int ignore = 0+solve(index+1,1,prices,dp);
+            profit = max(buys,ignore);
+        }
+        else{
+            int sell = +prices[index]+solve(index+1,1,prices,dp);
+            int ignore = 0+solve(index+1,0,prices,dp);
+            profit = max(sell,ignore);
+        }
+        return dp[index][buy] = profit;
+    }
+
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        vector<vector<int> > dp(n, vector<int>(2,-1));
+        return solve(0,1,prices,dp);
+    }
+};
+
+
+//Bottom Up Apporach
+
+
+
+
+
+
+
+
