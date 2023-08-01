@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int numPairsDivisibleBy60(vector<int>& time) {
+        int counts[60] = {0};
+        int result = 0;
+
+        for (auto i : time) {
+            int complement = (60 - i % 60) % 60;
+            result += counts[complement];
+            counts[i % 60]++;
+        }
+
+        return result;
+    }
+};
+
