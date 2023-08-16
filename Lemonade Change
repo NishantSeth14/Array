@@ -1,0 +1,50 @@
+class Solution {
+public:
+    bool lemonadeChange(vector<int>& bills) {
+        
+        int fiveCounter = 0;
+        int tenCounter = 0;
+        int twentyCounter = 0;
+
+        int n = bills.size();
+        bool isFlag = 1;
+
+        for(int i=0; i<n; i++){
+            if(bills[i] == 5){
+                fiveCounter++;
+            }
+            else if(bills[i] == 10){
+                if(fiveCounter >= 1){
+                    fiveCounter--;
+                }
+                else{
+                    isFlag = 0;
+                }
+                tenCounter++;
+            }
+            else if(bills[i] == 20){
+                if(tenCounter >= 1 && fiveCounter >= 1){
+                    tenCounter--;
+                    fiveCounter--;
+                }
+                else if(tenCounter < 1 && fiveCounter >= 3){
+                    fiveCounter -= 3;
+                }
+
+                else{
+                    isFlag = 0;
+                }
+                twentyCounter++;
+            }
+        }
+
+        if(isFlag == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+};
+
